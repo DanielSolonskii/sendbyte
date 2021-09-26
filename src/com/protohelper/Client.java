@@ -21,18 +21,20 @@ public class Client {
                 Packet packet = new Packet("Hi!", 5.4395498, 10.43894347, 4387483, a, i);
                 TimeUnit.SECONDS.sleep(2);
                 outStream.writeObject(packet);
+                Responce recvPacket = (Responce)inStream.readObject();
+                System.out.println(recvPacket.isAccepted);
             }
 
         }
 
 
-        Packet recvPacket = (Packet)inStream.readObject();
-        System.out.println("Message =" +recvPacket.message);
-        System.out.println("Lon =" +recvPacket.lon);
-        System.out.println("Lat =" +recvPacket.lat);
-        System.out.println("crccod =" +recvPacket.crccod);
-        outStream.close();
-        socket.close();
+     //   Packet recvPacket = (Packet)inStream.readObject();
+     //   System.out.println("Message =" +recvPacket.message);
+     //   System.out.println("Lon =" +recvPacket.lon);
+      //  System.out.println("Lat =" +recvPacket.lat);
+     //   System.out.println("crccod =" +recvPacket.crccod);
+       outStream.close();
+      socket.close();
     }
 }
 // Создать 50 потоков и внутри потока отправлять 255 пакетов
