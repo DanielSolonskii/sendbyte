@@ -1,5 +1,6 @@
 package com.protohelper;
-
+import java.nio.charset.StandardCharsets;
+import java.util.zip.CRC32;
 import java.util.concurrent.TimeUnit;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -18,11 +19,15 @@ public class Client {
 
         for(int i = 0; i < 50; i++) {
             for(int a = 0; a< 255; a++){
+
                 Packet packet = new Packet("Hi!", 5.4395498, 10.43894347, 4387483, a, i);
-                TimeUnit.SECONDS.sleep(2);
+
+                // CRC
+                packet.crccod = crccheck.getCRC(packet.message.getBytes(StandardCharsets.UTF_8), packet.message.getBytes(StandardCharsets.UTF_8).length);
                 outStream.writeObject(packet);
                 Responce recvPacket = (Responce)inStream.readObject();
                 System.out.println(recvPacket.isAccepted);
+                TimeUnit.SECONDS.sleep(2);
             }
 
         }
@@ -36,5 +41,7 @@ public class Client {
        outStream.close();
       socket.close();
     }
+
 }
+
 // Создать 50 потоков и внутри потока отправлять 255 пакетов

@@ -4,6 +4,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Server {
     public static int PORT = 4040;
@@ -21,15 +22,20 @@ public class Server {
         ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
         while (true) {
             Packet recvPacket = (Packet) inStream.readObject();
-
+            long hashCRC = 0;
             System.out.println("Message =" +recvPacket.message);
             System.out.println("Lon =" +recvPacket.lon);
             System.out.println("Lat =" +recvPacket.lat);
             System.out.println("crccod =" +recvPacket.crccod);
             System.out.println("id =" +recvPacket.id);
             System.out.println("idDevice =" +recvPacket.idDevice);
-            Responce respPacket = new Responce(true);
-            outStream.writeObject(respPacket);
+             hashCRC = crccheck.getCRC(recvPacket.message.getBytes(StandardCharsets.UTF_8), recvPacket.message.getBytes(StandardCharsets.UTF_8).length);
+             // Верефикация CRC и отправка пакета о принятии
+            if(hashCRC == recvPacket.crccod){
+                System.out.println("CRC HASH VERIFIED! CRC IS: " + hashCRC);
+                Responce respPacket = new Responce(true);
+                outStream.writeObject(respPacket);
+            }
 
         }
 
