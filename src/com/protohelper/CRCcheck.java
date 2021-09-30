@@ -2,8 +2,8 @@ package com.protohelper;
 
 import java.util.zip.CRC32;
 
-public class crccheck {
-    public static int getCRC(byte[] buf, int len ) {
+public class CRCcheck {
+    public final static int getCRC(byte[] buf, int len ) {
         int crc =  0xFFFF;
         int val = 0;
 
@@ -21,7 +21,7 @@ public class crccheck {
         }
         val =  (crc & 0xff) << 8;
         val =  val + ((crc >> 8) & 0xff);
-        System.out.printf("Calculated a CRC of 0x%x, swapped: 0x%x\n", crc, val);
+        //System.out.printf("Calculated a CRC of 0x%x, swapped: 0x%x\n", crc, val);
         return val;
 
     }   // end GetCRC

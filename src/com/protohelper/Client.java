@@ -1,47 +1,27 @@
 package com.protohelper;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.zip.CRC32;
 import java.util.concurrent.TimeUnit;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+
 public class Client {
-    public static void main(String[] args) throws Exception{
-        new Client();
-    }
-
-    public Client() throws Exception {
-        Socket socket = new Socket("127.0.0.1", Server.PORT);
-
-        ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
-
-        for(int i = 0; i < 50; i++) {
-            for(int a = 0; a< 255; a++){
-
-                Packet packet = new Packet("Hi!", 5.4395498, 10.43894347, 4387483, a, i);
-
-                // CRC
-                packet.crccod = crccheck.getCRC(packet.message.getBytes(StandardCharsets.UTF_8), packet.message.getBytes(StandardCharsets.UTF_8).length);
-                outStream.writeObject(packet);
-                Responce recvPacket = (Responce)inStream.readObject();
-                System.out.println(recvPacket.isAccepted);
-                TimeUnit.SECONDS.sleep(2);
-            }
-
+    public static void main(String[] args) throws Exception {
+        for(int i = 0; i<15 ; i++){
+            NewThread t = new NewThread(i);
+            t.start();
         }
 
-
-     //   Packet recvPacket = (Packet)inStream.readObject();
-     //   System.out.println("Message =" +recvPacket.message);
-     //   System.out.println("Lon =" +recvPacket.lon);
-      //  System.out.println("Lat =" +recvPacket.lat);
-     //   System.out.println("crccod =" +recvPacket.crccod);
-       outStream.close();
-      socket.close();
     }
+    public Client() throws Exception {
+        //for (int i = 0; i < 255; i++) {
+       // Socket socket = new Socket("127.0.0.1", 4041);
+      //  ObjectOutputStream outStream = new ObjectOutputStream(socket.getOutputStream());
+       // ObjectInputStream inStream = new ObjectInputStream(socket.getInputStream());
+        // цикл отправки пакетов
+    } }
 
-}
 
 // Создать 50 потоков и внутри потока отправлять 255 пакетов
