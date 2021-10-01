@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.io.ObjectOutputStream;
 import java.util.concurrent.TimeUnit;
 
+// Обработать входящие подключения
 public class ClientHandler implements Runnable {
     public Socket socket;
     public ObjectInputStream inStream;
@@ -14,10 +15,7 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket socket){
         this.socket = socket;
     }
-
-
-
-
+    //
     public void run() {
         long hashCRC;
 
@@ -43,7 +41,9 @@ public class ClientHandler implements Runnable {
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
+
                 /*
+                Вывод полученных значений
                 System.out.println("Message =" + recvPacket.message);
                 System.out.println("Lon =" + recvPacket.lon);
                 System.out.println("Lat =" + recvPacket.lat);
@@ -51,9 +51,6 @@ public class ClientHandler implements Runnable {
                 System.out.println("id =" + recvPacket.id);
                 System.out.println("idDevice =" + recvPacket.idDevice);
                  */
-
-
-
 
                 hashCRC = CRCcheck.getCRC(recvPacket.message.getBytes(StandardCharsets.UTF_8), recvPacket.message.getBytes(StandardCharsets.UTF_8).length);
                 // Верефикация CRC и отправка пакета о принятии

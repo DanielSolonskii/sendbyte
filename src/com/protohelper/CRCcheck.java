@@ -1,7 +1,6 @@
 package com.protohelper;
-
+// Проверка CRC
 import java.util.zip.CRC32;
-
 public class CRCcheck {
     public final static int getCRC(byte[] buf, int len ) {
         int crc =  0xFFFF;
@@ -23,6 +22,5 @@ public class CRCcheck {
         val =  val + ((crc >> 8) & 0xff);
         //System.out.printf("Calculated a CRC of 0x%x, swapped: 0x%x\n", crc, val);
         return val;
-
     }   // end GetCRC
 }
