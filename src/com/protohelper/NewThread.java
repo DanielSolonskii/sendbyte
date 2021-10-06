@@ -13,7 +13,7 @@ public class NewThread extends Thread {
     public NewThread(int i){
         this.i = i;
     }
-    public void run() throws  {
+    public void run() {
         // Время создание потока в миллисекундах
         long startTime = System.currentTimeMillis();
 
@@ -39,8 +39,6 @@ public class NewThread extends Thread {
             e.printStackTrace();
         }
         // цикл отправки пакетов
-
-
         for (int a = 0; a < 255; a++) {
             // Объявляем пакет и вкладываем в него нужные данные P.S числа, взяты для примера
             Packet packet = new Packet("Hi!", 5.4395498, 10.43894347, 4387483, a, i);
@@ -61,9 +59,12 @@ public class NewThread extends Thread {
                 e.printStackTrace();
             }
             // Объявляем о том, что пакет отправлен
-            System.out.println("PACKET SENT id: " + packet.id );
-            System.out.println("Packet is Recieved: " + recvPacket.isAccepted);
-            try {
+
+             System.out.println("PACKET SENT id: " + packet.id );
+            // System.out.println("Packet is Recieved: " + recvPacket.isAccepted);
+
+
+               try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
                 e.printStackTrace();

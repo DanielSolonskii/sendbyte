@@ -1,20 +1,18 @@
 package com.protohelper;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.concurrent.TimeUnit;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.Socket;
 
-
+/*
+ Запускаем определённое количество потоков NewThread
+*/
 public class Client {
-    public static void main(String[] args) throws Exception {
-        // Запускаем потоки в определённом количестве(i)
-        for(int i = 0; i<15 ; i++){
-            NewThread t = new NewThread(i);
-            t.start();
+    public static void main(String[] args) {
+
+        int argsize = 5; // количество потоков
+        Thread[] myThreads = new Thread[argsize];
+        for(int i = 0; i<argsize ; i++){ // Запускаем в цикле потоки в определённом количестве(argsize)
+            myThreads[i] = new NewThread(i);
+            myThreads[i].start();
         }
     }
-    public Client() throws Exception {
+    public Client() {
          // Не нужно
     } }

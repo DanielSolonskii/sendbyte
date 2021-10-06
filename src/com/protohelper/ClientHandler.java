@@ -15,7 +15,6 @@ public class ClientHandler implements Runnable {
     public ClientHandler(Socket socket){
         this.socket = socket;
     }
-    //
     public void run() {
         long hashCRC;
 

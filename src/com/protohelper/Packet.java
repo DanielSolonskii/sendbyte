@@ -1,7 +1,7 @@
 package com.protohelper;
 
 import java.io.Serializable;
-
+// Данные в пакете для отправки
 public class Packet implements Serializable {
         String message;
         double lon;
